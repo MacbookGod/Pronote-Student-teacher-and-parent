@@ -1,13 +1,54 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 let win;
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+const DATA_PATH = path.join(app.getPath('userData'), 'pronote-profiles.json');
 
 app.commandLine.appendSwitch('high-dpi-support', '1');
 app.commandLine.appendSwitch('force-device-scale-factor', '1');
 app.commandLine.appendSwitch('enable-gpu-rasterization');
 app.commandLine.appendSwitch('ignore-gpu-blocklist');
+
+ipcMain.handle('get-accounts', () => {
+  try {
+    if (fs.existsSync(DATA_PATH)) {
+      return JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+    }
+  } catch (e) { console.error(e); }
+  return [];
+});
+
+ipcMain.on('save-accounts', (event, accounts) => {
+  try {
+    fs.writeFileSync(DATA_PATH, JSON.stringify(accounts), 'utf8');
+  } catch (e) { console.error(e); }
+});
+
+function createMenu() {
+  const template = [
+    {
+      label: 'Navigation',
+      submenu: [
+        {
+          label: 'Back to Profiles Menu',
+          accelerator: 'CmdOrCtrl+R',
+          click: () => {
+            if (win) win.loadFile('index.html');
+          }
+        },
+        {
+          label: 'Quit',
+          accelerator: 'CmdOrCtrl+Q',
+          click: () => { app.quit(); }
+        }
+      ]
+    }
+  ];
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
 
 function createWindow() {
   win = new BrowserWindow({
@@ -24,6 +65,7 @@ function createWindow() {
 
   win.webContents.setUserAgent(USER_AGENT);
   win.loadFile('index.html');
+  createMenu();
 }
 
 ipcMain.on('load-url', (event, { url, username, password }) => {

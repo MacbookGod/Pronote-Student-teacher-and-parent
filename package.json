@@ -1,22 +1,22 @@
 {
   "name": "pronote-desktop",
-  "version": "1.0.0",
-  "description": "Custom Electron wrapper for PRONOTE",
+  "version": "2.0.0",
+  "description": "Custom Multi-Account Electron Client for PRONOTE & ENT portals",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build:mac": "electron-builder --mac dmg",
     "build:win": "electron-builder --win nsis"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["pronote", "electron", "desktop"],
+  "author": "MacbookGod",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^31.0.0",
+    "electron": "^31.7.7",
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.dragonbeast.pronote",
+    "appId": "com.macbookgod.pronote",
     "productName": "PRONOTE-Desktop",
     "mac": {
       "target": "dmg",
