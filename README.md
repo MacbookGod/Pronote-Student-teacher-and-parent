@@ -14,3 +14,6 @@ Because this application is open-source and built locally without a paid Apple D
 3. Enter your Mac user password when prompted (no text will show while typing) and press **Enter**.
 
 Now, **Right-click** (or Ctrl+Click) the app in your Applications folder and select **Open**. The warning will disappear permanently!
+
+
+You can also go into finder /Applications/PRONOTE-Desktop.app right click and select Get Info and remove Malware
