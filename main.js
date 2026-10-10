@@ -34,9 +34,7 @@ function createMenu() {
         {
           label: 'Back to Profiles Menu',
           accelerator: 'CmdOrCtrl+R',
-          click: () => {
-            if (win) win.loadFile('index.html');
-          }
+          click: () => { if (win) win.loadFile('index.html'); }
         },
         {
           label: 'Quit',
@@ -164,6 +162,14 @@ ipcMain.on('reset-app', () => {
 
 app.whenReady().then(() => {
   app.userAgentFallback = USER_AGENT;
+  
+  try {
+    const initLogPath = path.join(app.getPath('userData'), 'boot.log');
+    fs.writeFileSync(initLogPath, `Application startup sequence initiated at ${new Date().toISOString()}\n`, { flag: 'a' });
+  } catch (err) {
+    console.error("Initialization check warning:", err);
+  }
+
   createWindow();
 
   app.on('activate', () => {
@@ -174,3 +180,4 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
+
