@@ -1,7 +1,7 @@
 {
   "name": "pronote-desktop",
-  "version": "2.0.0",
-  "description": "Custom Multi-Account Electron Client for PRONOTE & ENT portals",
+  "version": "3.0.0",
+  "description": "Production Standalone Multi-Profile Client for PRONOTE & ENT portals",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
