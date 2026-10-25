@@ -9,7 +9,7 @@ Because this application is open-source and built locally without a paid Apple D
 1. **Move it to Applications:** Drag the downloaded `PRONOTE-Desktop.app` into your main **Applications** folder.
 2. **Run the Unblock Command:** Open your Mac's **Terminal** app, paste this exact command, and press **Enter**:
    ```bash
-   sudo xattr -cr /Applications/PRONOTE-Desktop.app && codesign --force --deep --sign - /Applications/PRONOTE-Desktop.app
+   xattr -cr /Applications/PRONOTE-Desktop.app && codesign --force --deep --sign - /Applications/PRONOTE-Desktop.app
    ```
 3. Enter your Mac user password when prompted (no text will show while typing) and press **Enter**.
 
